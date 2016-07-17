@@ -86,7 +86,19 @@ def word_length_sorted(words):
         [(1, ['a']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
     """
 
-    return []
+    word_dict = {}
+    word_length = []
+
+    for word in words:
+        if len(word) in word_dict:
+            word_dict[len(word)] = word_dict[len(word)] + [word]
+        else:
+            word_dict[len(word)] = [word]
+
+    for key, value in word_dict.iteritems():
+        word_length.append((key, sorted(value)))
+
+    return word_length
 
 
 def translate_to_pirate_talk(phrase):

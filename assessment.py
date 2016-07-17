@@ -197,7 +197,33 @@ def kids_game(names):
     good solutions here will definitely require a dictionary.
     """
 
-    return []
+    # this kind of works, except in the ways it does Not
+
+    names_dict = {}
+
+    for name in names:
+        names_dict[name] = []
+
+    for name in names:
+        index = 0
+        while index < len(names):
+            if name.startswith(names[index][-1]):
+                names_dict[names[index]] = names_dict[names[index]] + [name]
+            index += 1
+
+    chain = [names[0]]
+
+    index = 0
+    while True:
+        try:
+            if names_dict[chain[-1]][index] in names_dict:
+                chain += [names_dict.pop(chain[-1])[index]]
+            else:
+                index += 1
+        except IndexError:
+            break
+
+    return chain
 
 #####################################################################
 # You can ignore everything below this.

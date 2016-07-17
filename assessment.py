@@ -48,7 +48,7 @@ def get_melon_price(melon_name):
     Watermelon 2.95
     Cantaloupe 2.50
     Musk 3.25
-    Christmas 14.25 
+    Christmas 14.25
     (it was a bad year for Christmas melons -- supply is low!)
 
         >>> get_melon_price('Watermelon')
@@ -56,12 +56,18 @@ def get_melon_price(melon_name):
 
         >>> get_melon_price('Musk')
         3.25
-        
+
         >>> get_melon_price('Tomato')
         'No price found'
     """
 
-    return 0
+    melon_prices = {'Watermelon': 2.95, 'Cantaloupe': 2.50, 'Musk': 3.25,
+                    'Christmas': 14.25}
+
+    if melon_name in melon_prices:
+        return melon_prices[melon_name]
+    else:
+        return "No price found"
 
 
 def word_length_sorted(words):

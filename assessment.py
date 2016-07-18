@@ -197,13 +197,28 @@ def kids_game(names):
     good solutions here will definitely require a dictionary.
     """
 
-    # this kind of works, except in the ways it does Not
+    # This kind of works, except in the ways it does Not.
+
+    # I'm sort of thinking about this like it's a network graph, in that the
+    # words are nodes that share edges on the basis of the last letter of one
+    # word being the first letter of another. I have to traverse this graph
+    # given the starting location, and when there's more than one edge, I don't
+    # get to choose between them; I have to use the one that leads to the next
+    # word in the list. Also, once I pass through a node, I can't go through it
+    # again.
+
+    # Tragically, I don't actually know any strategies for traversing graphs, so
+    # this conceptualization has not been especially helpful.
 
     names_dict = {}
 
+    # Get all the words in the dictionary as keys with empty lists for values.
     for name in names:
         names_dict[name] = []
 
+    # For each word, check to see if any other word starts with the same letter
+    # the word ends with, in which case it should be added to the values for
+    # that key.
     for name in names:
         index = 0
         while index < len(names):
@@ -211,19 +226,26 @@ def kids_game(names):
                 names_dict[names[index]] = names_dict[names[index]] + [name]
             index += 1
 
+    # Start the chain with the first word in the list.
     chain = [names[0]]
 
+    # See if the last word in the chain has a value that's first item is also a
+    # key in the dictionary; if so, add that item to the chain and delete the
+    # key-value pair so you can't use it again. If not, look at the next item.
     index = 0
     while True:
         try:
             if names_dict[chain[-1]][index] in names_dict:
                 chain += [names_dict.pop(chain[-1])[index]]
             else:
-                index += 1
+                index += 1  # you'll notice this doesn't go back down, so it
+                            # passes the doctest but isn't a good solution
         except IndexError:
-            break
+            break           # this is also not a good way to leave
 
     return chain
+
+    # I want to solve this for all cases but I'm over the time limit.
 
 #####################################################################
 # You can ignore everything below this.
